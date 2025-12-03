@@ -1,0 +1,78 @@
+data:
+  brightness_factor: 0.1
+  contrast_factor: 0.1
+  data_root: data\chest_xray_pneumonia
+  dataset_name: chest_xray_pneumonia
+  histogram_reference_percentile: 50.0
+  horizontal_flip_prob: 0.5
+  image_size:
+  - 224
+  - 224
+  normalize_mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  normalize_std:
+  - 0.229
+  - 0.224
+  - 0.225
+  preprocessing_type: histogram_matching
+  rotation_range: 10.0
+  test_ratio: 0.15
+  train_ratio: 0.7
+  use_augmentation: true
+  val_ratio: 0.15
+  z_score_clip_range: !!python/tuple
+  - -3.0
+  - 3.0
+evaluation:
+  calibration_bins: 10
+  generate_gradcam: true
+  gradcam_layer: backbone.features.denseblock4
+  metrics:
+  - auroc
+  - f1
+  - precision
+  - recall
+  - accuracy
+  - specificity
+  num_gradcam_samples: 20
+  optimize_threshold: true
+  threshold_metric: f1
+experiment:
+  description: Test with real chest X-ray data
+  deterministic: true
+  device: auto
+  experiment_name: real_data_test
+  log_dir: logs
+  log_frequency: 10
+  num_workers: 0
+  output_dir: outputs
+  pin_memory: false
+  random_seed: 42
+  resume_from_checkpoint: null
+  save_best_model: true
+  save_checkpoint_frequency: 5
+  save_last_model: true
+model:
+  backbone: densenet121
+  dropout_rate: 0.3
+  freeze_backbone: false
+  freeze_layers: 0
+  num_classes: 1
+  pretrained: true
+training:
+  batch_size: 32
+  class_balancing: true
+  grad_clip_norm: 1.0
+  learning_rate: 0.0001
+  loss_type: bce_with_logits
+  min_lr: 1.0e-07
+  num_epochs: 9
+  patience: 8
+  pos_weight: 1.5
+  scheduler_factor: 0.5
+  scheduler_patience: 5
+  scheduler_type: reduce_on_plateau
+  use_scheduler: true
+  weight_decay: 0.001
