@@ -235,5 +235,8 @@ outputs/*/logs/tensorboard/events.out.tfevents*
 .vscode/
 .idea/
 
+##data folder
+echo data/ >> .gitignore
+
 # Experiment metadata (optional - uncomment if too large)
 # outputs/*/experiment_summary.json
